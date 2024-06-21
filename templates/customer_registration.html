@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+	    margin: 0;
+            padding: 0;
+        }
+                .tab-container {
+            margin: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #e9e9e9;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 2px solid white;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .box {
+            flex: 1 1 calc(50% - 20px);
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box h3 {
+            margin-bottom: 15px;
+        }
+
+        .box p {
+            margin-bottom: 10px;
+        }
+
+        .profile-form label,
+        .subscription-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-form input,
+        .subscription-form input,
+        .profile-form select,
+        .subscription-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-form input[type="submit"],
+        .subscription-form input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .profile-form input[type="submit"]:hover,
+        .subscription-form input[type="submit"]:hover {
+            background-color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            align = center;
+            
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background: #333;
+            color: #fff;
+             
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .customer-info, .bill-items {
+            margin-bottom: 20px;
+        }
+        .bill-items table {
+            width: 100%;
+            border-collapse: collapse;
+            align: center;
+        }
+        .bill-items th, .bill-items td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .bill-items th {
+            background-color: #f4f4f4;
+        }
+        .total {
+            text-align: center;
+            font-weight: bold;
+        }
+	footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Employee Dashboard</h1>
+    </header>
+    <nav>
+        <a href="{%url 'empdash'%}">Dashboard</a>
+        <a href="{%url 'cusReg'%}">Customer</a>
+        <a href="{%url 'billing'%}">Billing</a>
+        <a href="{%url 'calculateBill'%}">Calculate Bill</a>
+        <a href="{%url 'reminder'%}">Reminders</a>
+        <a href="{%url 'logout' %}">Logout</a>
+    </nav>
+   
+    <div class="tab-container">
+        <div class="tabs">
+            <div class="tab active" data-tab="tab1">Customer Registration</div>
+            <div class="tab" data-tab="tab2">Meter Registration</div>
+            <div class="tab" data-tab="tab3">Service Charge Registration</div>
+            <div class="tab" data-tab="tab4">List of customer</div>
+        </div>
+        
+        <div id="tab1" class="tab-content active">
+            <section>
+                <div class="box">
+                    <h3>Customer Profile Information</h3>
+                    {% for m in messages %}
+                    <h3>{{m}}</h3>
+                    {%endfor%}
+            </header>
+                    <form class="profile-form" action="{%url 'Cus_Registration_Form'%}" method="post">
+                        {% csrf_token %}
+    
+                        <label for="customerFirstName">Customer First Name:</label>
+                        <input type="text" id="customerFirstName" name="customerFirstName" placeholder="Enter your First Name" onkeydown="if(event.keyCode==13)document.getElementById('customerLastName').focus()">
+                
+                        <label for="customerLastName">Customer Last Name:</label>
+                        <input type="text" id="customerLastName" name="customerLastName" placeholder="Enter your Last Name" onkeydown="if(event.keyCode==13)document.getElementById('phonenumber').focus()">
+                    
+                        <label for="phonenumber">Phone No:</label>
+                        <input type="text" id="phonenumber" name="phonenumber" placeholder="Enter Phone Number" onkeydown="if(event.keyCode==13)document.getElementById('email').focus()">
+                    
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="Enter your email address" onkeydown="if(event.keyCode==13)document.getElementById('address').focus()">
+    
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" placeholder="Enter your address" onkeydown="if(event.keyCode==13)document.getElementById('city').focus()">
+    
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" placeholder="Enter your city" onkeydown="if(event.keyCode==13)document.getElementById('state').focus()">
+    
+                        <label for="state">State:</label>
+                        <input type="text" id="state" name="state" placeholder="Enter your state" onkeydown="if(event.keyCode==13)document.getElementById('date').focus()">
+    
+                        <label for="date">Date of joining:</label>
+                        <input type="date" id="date" name="date" onkeydown="if(event.keyCode==13)document.getElementById('status').focus()">
+
+                        <label for="status">Status:</label>
+                        <input type="text" id="status" name="status" placeholder="Enter status">   
+
+                        <input type="submit" value="Save">
+     
+                    </form>
+                </div>
+                
+            </section>
+        </div>
+        <div id="tab2" class="tab-content">
+           
+            <section>
+                <div class="box">
+                    <h3>Meter Registration</h3>
+                    {% for m in messages %}
+                    <h3>{{m}}</h3>
+                    {%endfor%}
+            </header>
+                    <form class="profile-form" action="{%url 'meter_Registration_Form'%}" method="post">
+                        {% csrf_token %}
+    
+                        <label for="meterno">Meter No:</label>
+                        <input type="text" id="meterno" name="meterno" placeholder="Enter Meter No" onkeydown="if(event.keyCode==13)document.getElementById('meterlocation').focus()">
+    
+                        <label for="meterlocation">Meter location:</label>
+                        <input type="text" id="meterlocation" name="meterlocation" placeholder="Enter Meter location" onkeydown="if(event.keyCode==13)document.getElementById('metertype').focus()">
+    
+                        <label for="metertype">Meter Type:</label>
+                        <input type="text" id="metertype" name="metertype" placeholder="Enter Meter Type" onkeydown="if(event.keyCode==13)document.getElementById('phasecode').focus()">
+                                
+    
+                        <label for="phasecode">Phase code:</label>
+                        <input type="text" id="phasecode" name="phasecode" placeholder="Enter Phase Code" onkeydown="if(event.keyCode==13)document.getElementById('biltype').focus()">
+    
+                        <label for="biltype">Bill Type:</label>
+                        <input type="text" id="biltype" name="biltype" placeholder="Enter Bill Type" onkeydown="if(event.keyCode==13)document.getElementById('cdate').focus()">
+    
+                        <label for="date">Creation Date:</label>
+                        <input type="date" id="cdate" name="cdate">
+
+                        <input type="submit" value="Save">
+     
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div id="tab3" class="tab-content">
+        
+            <section>
+                <div class="box">
+                    <h3>Service Charge</h3>
+                    {% for m in messages %}
+                    <h3>{{m}}</h3>
+                    {%endfor%}
+            </header>
+                    <form class="profile-form" action="{%url 'service_Charge_Form'%}" method="post">
+                        {% csrf_token %}
+
+                        <label for="Meter_File_Charge">Meter File Charge:</label>
+                        <input type="text" id="Meter_File_Charge" name="Meter_File_Charge" placeholder="Enter Meter File Charge in Rs." onkeydown="if(event.keyCode==13)document.getElementById('Meter_Charge').focus()">
+                    
+                        <label for="Meter_Charge">Meter Charge:</label>
+                        <input type="text" id="Meter_Charge" name="Meter_Charge" placeholder="Enter Meter Charge in Rs." onkeydown="if(event.keyCode==13)document.getElementById('connection_Charge').focus()">
+                    
+                        <label for="connection_Charge">Connection Charge:</label>
+                        <input type="text" id="connection_Charge" name="connection_Charge" placeholder="Enter connection Charge in Rs." onkeydown="if(event.keyCode==13)document.getElementById('labour_charge').focus()">
+
+                        <label for="labour_charge">Labour Charge:</label>
+                        <input type="text" id="labour_charge" name="labour_charge" placeholder="Enter Labour Charge in Rs." onkeydown="if(event.keyCode==13)document.getElementById('advance_deposite').focus()">
+
+                        <label for="advance_deposite">Advance Deposite:</label>
+                        <input type="text" id="advance_deposite" name="advance_deposite" placeholder="Enter Advance Deposite in Rs." onkeydown="if(event.keyCode==13)document.getElementById('balance').focus()">
+
+                        <label for="balance">Balance Amount:</label>
+                        <input type="text" id="balance" name="balance" placeholder="Balance Amount in Rs.">
+
+                        <input type="submit" value="Submit">
+
+                    </form>
+                </div>
+                
+            </section>
+        </div>
+        <div id="tab4" class="tab-content">
+        
+            <section>
+                <div class="box">
+                    <section>
+                    <div class="box">
+                        <h3>Show all Customer Details</h3>
+                        <form class="profile-form" action="{%url 'show_All_customer'%}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Show list of customers">
+                           
+                        </form>
+                    
+                    </div>
+                    <div class="box">
+                        <h3>Find Customer Details</h3>
+                        <p> Electricity Billing System</p>
+                           
+                        </form>
+                    </div>
+                </section>
+                     
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Meter No</th>
+                        <th>Phone No</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                         
+                       
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cus in result %}
+                     
+                    <tr>
+                        <td>{{ cus.id}}</td>
+                        <td>{{ cus.getFullName}}</td>
+                        <td>{{ cus.meter_no }}</td>
+                        <td>{{ cus.phone_no }}</td>
+                        <td>{{ cus.email }}</td>
+                        <td>{{ cus.address }}</td>
+                         
+                        
+                    </tr>
+                    {% endfor %}
+                    <!-- Add more rows for additional customers -->
+                </tbody>
+            </table>
+       
+                </div>
+                
+            </section>
+        </div>
+    </div>
+
+    </div>
+	<footer>
+        <p>&copy; 2024 Electricity Bill System. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    // Add active class to the clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

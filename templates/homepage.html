@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill System</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        nav {
+            background: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        section {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+        
+        .article {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Electricity Bill System</h1>
+    </header>
+    <nav>
+        <ul>
+
+           <li><a href="{% url 'home' %}">Home</a></li>
+           <li><a href="{% url 'about'%}">About</a></li>
+           <li><a href="{% url 'contactus'%}">Contact Us</a></li>
+           <li><a href="{% url 'login'%}">Login</a></li>
+
+        </ul>
+    </nav>
+    <div class="container">
+        
+        <section>
+            <div class="article">
+                <h2>Quick Info</h2>
+                <p>This system allows you to conveniently manage and view your electricity bills online.</p>
+                <p>Use our easy-to-use interface to input your electricity usage data and view your bill details.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="article">
+                <h2>Quick Pay</h2>
+                <p>This system allows you to conveniently manage and view your electricity bills online.</p>
+                <p>Use our easy-to-use interface to input your electricity usage data and view your bill details.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="article">
+                <h2>Safety Tips</h2>
+                <p>This system allows you to conveniently manage and view your electricity bills online.</p>
+                <p>Use our easy-to-use interface to input your electricity usage data and view your bill details.</p>
+                <a href="#">Read More</a>
+            </div>
+            
+            <!-- Add more articles as needed -->
+        </section>
+        <section>
+             
+            <img src="media\images\background02.jpg" class="feature-image">
+            
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Electricity Bill System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
