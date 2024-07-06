@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill System - Login</title>
+    <style>
+        /* Basic CSS for layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        section {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        input[type="text"], input[type="email"]{
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+ 
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+ 
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            width: 102%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+           
+            
+        }
+        input[type="submit"]:hover {
+            background-color: #444;
+        }
+        textarea {
+            width: 100%; /* Full width */
+            height: 200px; /* Specific height */
+            padding: 10px; /* Padding inside the textarea */
+            margin: 10px 0; /* Margin around the textarea */
+            box-sizing: border-box; /* Ensure padding and border are included in the total width and height */
+            
+            font-size: 16px; /* Font size */
+            font-family: Arial, sans-serif; /* Font family */
+            color: #333; /* Text color */
+            background-color: #f9f9f9; /* Background color */
+            
+            border: 1px solid #ccc; /* Border */
+            border-radius: 5px; /* Rounded corners */
+            
+            resize: vertical; /* Allow only vertical resizing */
+            overflow: auto; /* Show scrollbars if needed */
+            
+            /* Add focus state for better UX */
+            outline: none; /* Remove default outline */
+            border-color: #66afe9; /* Border color on focus */
+            box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Shadow on focus */
+        }
+        
+        textarea:focus {
+            background-color: #fff; /* Change background color on focus */
+        }
+        
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Electricity Bill System</h1>
+        {% for m in messages %}
+        <h3>{{m}}</h3>
+        {%endfor%}
+    </header>
+    <nav>
+        <ul>
+
+           <li><a href="{% url 'home' %}">Home</a></li>
+           <li><a href="{% url 'about'%}">About</a></li>
+           <li><a href="{% url 'contactus'%}">Contact Us</a></li>
+           <li><a href="{% url 'login'%}">Login</a></li>
+
+        </ul>
+    </nav>
+    <div class="container">
+
+        <section> 
+ 
+            <h2>Contact Us</h2>
+            <form class="contactUS-form" action="contact_process.php" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <input type="submit" value="Submit">
+            </form>
+            <div class="contact-info">
+                <h3>Our Contact Information</h3>
+                <p>Email: info@newspaper.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <p>Address: 123 Newspaper Lane, City, Country</p>
+            </div>
+        </section>
+ 
+    </div>
+    <footer>
+        <p>&copy; 2024 Electricity Bill System. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const inputs = document.querySelectorAll("input, select, textarea");
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        const nextInput = inputs[i + 1];
+                        if (nextInput) {
+                            nextInput.focus();
+                        }
+                    }
+            }); 
+        }
+    });
+</script>
+</html>
